@@ -25,6 +25,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
 
     send_stream.send_data(Bytes::from(vec![5; 1000]), false)?;
     tokio::time::sleep(Duration::from_secs(5)).await;
+    // sending RST_STREAM(CANCEL) here
     send_stream.send_reset(Reason::CANCEL);
     let response = response.await?;
     println!("{:?}", response);
